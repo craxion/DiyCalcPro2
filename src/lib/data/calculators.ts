@@ -42,7 +42,9 @@ export const calculatorCategories: CalculatorCategory[] = [
       'concrete-slab-calculator',
       'brick-and-block-calculator',
       'drywall-calculator',
-      'insulation-calculator'
+      'insulation-calculator',
+      'lumber-board-foot-calculator',
+      'decking-calculator'
     ]
   },
   {
@@ -55,7 +57,8 @@ export const calculatorCategories: CalculatorCategory[] = [
       'lumber-board-foot-calculator',
       'decking-calculator',
       'stair-calculator',
-      'rafter-calculator'
+      'rafter-calculator',
+      'fence-calculator'
     ]
   },
   {
@@ -68,7 +71,8 @@ export const calculatorCategories: CalculatorCategory[] = [
       'soil-mulch-gravel-calculator',
       'paver-calculator',
       'fence-calculator',
-      'grass-seed-calculator'
+      'grass-seed-calculator',
+      'pond-liner-calculator'
     ]
   },
   {
@@ -143,6 +147,36 @@ export const sampleCalculators: Calculator[] = [
       { id: 'doors', label: 'Number of Doors', type: 'number', required: false, min: 0, step: 1 },
       { id: 'windows', label: 'Number of Windows', type: 'number', required: false, min: 0, step: 1 },
       { id: 'coats', label: 'Number of Coats', type: 'number', required: true, min: 1, max: 3, step: 1 }
+    ]
+  },
+  {
+    id: 'lumber-board-foot-calculator',
+    name: 'Lumber Board Foot Calculator',
+    description: 'Calculate board feet for lumber purchases and project planning',
+    category: 'Carpentry and Woodworking',
+    slug: 'lumber-board-foot-calculator',
+    formula: 'Board Feet = (Length × Width × Thickness) ÷ 144',
+    units: ['board feet', 'linear feet'],
+    inputs: [
+      { id: 'length', label: 'Length', type: 'number', unit: 'ft', required: true, min: 1, step: 0.25, help: 'Length of the lumber piece' },
+      { id: 'width', label: 'Width', type: 'number', unit: 'in', required: true, min: 1, step: 0.25, help: 'Width of the lumber piece' },
+      { id: 'thickness', label: 'Thickness', type: 'number', unit: 'in', required: true, min: 0.25, step: 0.25, help: 'Thickness of the lumber piece' },
+      { id: 'quantity', label: 'Quantity', type: 'number', required: true, min: 1, step: 1, help: 'Number of pieces needed' }
+    ]
+  },
+  {
+    id: 'soil-mulch-gravel-calculator',
+    name: 'Soil, Mulch & Gravel Calculator',
+    description: 'Calculate cubic yards of soil, mulch, or gravel needed for landscaping projects',
+    category: 'Landscaping and Outdoor',
+    slug: 'soil-mulch-gravel-calculator',
+    formula: 'Volume = Length × Width × Depth',
+    units: ['cubic yards', 'cubic feet', 'bags'],
+    inputs: [
+      { id: 'length', label: 'Length', type: 'number', unit: 'ft', required: true, min: 0.1, step: 0.1, help: 'Length of the area to cover' },
+      { id: 'width', label: 'Width', type: 'number', unit: 'ft', required: true, min: 0.1, step: 0.1, help: 'Width of the area to cover' },
+      { id: 'depth', label: 'Depth', type: 'number', unit: 'in', required: true, min: 0.5, step: 0.25, help: 'Desired depth of material' },
+      { id: 'materialType', label: 'Material Type', type: 'select', required: true, options: ['Soil', 'Mulch', 'Gravel', 'Sand'], help: 'Type of material being calculated' }
     ]
   }
 ];

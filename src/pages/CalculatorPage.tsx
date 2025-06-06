@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { Calculator, Info, RefreshCw, Printer, ArrowLeft, Zap, TrendingUp, CheckCircle } from 'lucide-react';
 import { sampleCalculators } from '../lib/data/calculators';
+import { createPrintFunction, PrintableResultsWrapper } from '../utils/printUtils';
 
 export function CalculatorPage() {
   const { categorySlug, calculatorSlug } = useParams<{ 
@@ -12,12 +13,15 @@ export function CalculatorPage() {
   const calculator = sampleCalculators.find(calc => calc.slug === calculatorSlug);
   
   if (!calculator) {
-    return <Navigate to="/calculators\" replace />;
+    return <Navigate to="/calculators" replace />;
   }
 
   const [inputs, setInputs] = useState<Record<string, number>>({});
   const [results, setResults] = useState<Record<string, any>>({});
   const [isVisible, setIsVisible] = useState(false);
+
+  // Create the standardized print function for this calculator
+  const printResults = createPrintFunction(calculator.slug, calculator.name);
 
   useEffect(() => {
     setIsVisible(true);
@@ -78,50 +82,6 @@ export function CalculatorPage() {
   const resetCalculator = () => {
     setInputs({});
     setResults({});
-  };
-
-  const printResults = () => {
-    const printableContent = document.getElementById('concrete-slab-printable-results');
-    if (printableContent) {
-      const originalContents = document.body.innerHTML;
-      document.body.innerHTML = `
-        <html>
-          <head>
-            <title>Concrete Slab Calculator Results - DIYCalculatorPro</title>
-            <style>
-              body { font-family: Arial, sans-serif; margin: 20px; }
-              .print-header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #FF6600; padding-bottom: 20px; }
-              .print-title { color: #2C2C2C; font-size: 24px; font-weight: bold; margin-bottom: 10px; }
-              .print-subtitle { color: #6B6B6B; font-size: 16px; }
-              .result-section { margin-bottom: 25px; padding: 20px; border: 1px solid #E0E0E0; border-radius: 8px; }
-              .section-title { color: #2C2C2C; font-size: 18px; font-weight: bold; margin-bottom: 15px; border-bottom: 1px solid #FF6600; padding-bottom: 5px; }
-              .result-row { display: flex; justify-content: space-between; margin-bottom: 10px; padding: 8px 0; }
-              .result-label { color: #6B6B6B; }
-              .result-value { color: #2C2C2C; font-weight: bold; }
-              .highlight-row { border-top: 1px solid #E0E0E0; padding-top: 10px; margin-top: 10px; }
-              .highlight-value { color: #FF6600; font-size: 18px; }
-              .print-footer { margin-top: 40px; text-align: center; color: #6B6B6B; font-size: 12px; border-top: 1px solid #E0E0E0; padding-top: 20px; }
-            </style>
-          </head>
-          <body>
-            <div class="print-header">
-              <div class="print-title">Concrete Slab Calculator Results</div>
-              <div class="print-subtitle">DIYCalculatorPro - Professional Grade Tools</div>
-              <div class="print-subtitle">Generated on ${new Date().toLocaleDateString()}</div>
-            </div>
-            ${printableContent.innerHTML}
-            <div class="print-footer">
-              <p>Results calculated using industry-standard formulas | DIYCalculatorPro.com</p>
-              <p>Always verify calculations with a professional before ordering materials</p>
-            </div>
-          </body>
-        </html>
-      `;
-      window.print();
-      document.body.innerHTML = originalContents;
-      // Re-trigger React to re-render the page
-      window.location.reload();
-    }
   };
 
   return (
@@ -276,7 +236,7 @@ export function CalculatorPage() {
               {Object.keys(results).length > 0 ? (
                 <div className="space-y-6">
                   {calculator.id === 'concrete-slab-calculator' && (
-                    <div id="concrete-slab-printable-results">
+                    <PrintableResultsWrapper calculatorSlug={calculator.slug}>
                       <div className="result-section bg-gradient-to-r from-grey-100 to-grey-200 p-6 rounded-2xl border border-grey-300">
                         <h3 className="section-title font-bold text-grey-800 mb-4 text-lg flex items-center space-x-2">
                           <div className="w-3 h-3 bg-primary-500 rounded-full"></div>
@@ -313,48 +273,48 @@ export function CalculatorPage() {
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </PrintableResultsWrapper>
                   )}
                   
                   {calculator.id === 'paint-coverage-calculator' && (
-                    <>
-                      <div className="bg-gradient-to-r from-grey-100 to-grey-200 p-6 rounded-2xl border border-grey-300">
-                        <h3 className="font-bold text-grey-800 mb-4 text-lg flex items-center space-x-2">
+                    <PrintableResultsWrapper calculatorSlug={calculator.slug}>
+                      <div className="result-section bg-gradient-to-r from-grey-100 to-grey-200 p-6 rounded-2xl border border-grey-300">
+                        <h3 className="section-title font-bold text-grey-800 mb-4 text-lg flex items-center space-x-2">
                           <div className="w-3 h-3 bg-primary-500 rounded-full"></div>
                           <span>Area Calculations</span>
                         </h3>
                         <div className="space-y-3">
-                          <div className="flex justify-between items-center">
-                            <span className="text-grey-600">Total Wall Area:</span>
-                            <span className="font-bold text-grey-800">{results.wallArea} sq ft</span>
+                          <div className="result-row flex justify-between items-center">
+                            <span className="result-label text-grey-600">Total Wall Area:</span>
+                            <span className="result-value font-bold text-grey-800">{results.wallArea} sq ft</span>
                           </div>
-                          <div className="flex justify-between items-center">
-                            <span className="text-grey-600">Paintable Area:</span>
-                            <span className="font-bold text-grey-800">{results.paintableArea} sq ft</span>
+                          <div className="result-row flex justify-between items-center">
+                            <span className="result-label text-grey-600">Paintable Area:</span>
+                            <span className="result-value font-bold text-grey-800">{results.paintableArea} sq ft</span>
                           </div>
-                          <div className="flex justify-between items-center pt-2 border-t border-grey-300">
-                            <span className="font-bold text-primary-600">Total Area to Paint:</span>
-                            <span className="font-bold text-primary-600 text-xl">{results.totalArea} sq ft</span>
+                          <div className="result-row highlight-row flex justify-between items-center pt-2 border-t border-grey-300">
+                            <span className="result-label font-bold text-primary-600">Total Area to Paint:</span>
+                            <span className="result-value highlight-value font-bold text-primary-600 text-xl">{results.totalArea} sq ft</span>
                           </div>
                         </div>
                       </div>
-                      <div className="bg-gradient-to-r from-success-100 to-success-200 p-6 rounded-2xl border border-success-300">
-                        <h3 className="font-bold text-success-800 mb-4 text-lg flex items-center space-x-2">
+                      <div className="result-section bg-gradient-to-r from-success-100 to-success-200 p-6 rounded-2xl border border-success-300">
+                        <h3 className="section-title font-bold text-success-800 mb-4 text-lg flex items-center space-x-2">
                           <div className="w-3 h-3 bg-success-500 rounded-full"></div>
                           <span>Paint Requirements</span>
                         </h3>
                         <div className="space-y-3">
-                          <div className="flex justify-between items-center">
-                            <span className="text-success-700">Paint Gallons:</span>
-                            <span className="font-bold text-success-800">{results.gallons} gallons</span>
+                          <div className="result-row flex justify-between items-center">
+                            <span className="result-label text-success-700">Paint Gallons:</span>
+                            <span className="result-value font-bold text-success-800">{results.gallons} gallons</span>
                           </div>
-                          <div className="flex justify-between items-center pt-2 border-t border-success-300">
-                            <span className="font-bold text-success-700">Estimated Cost:</span>
-                            <span className="font-bold text-success-700 text-xl">${results.cost}</span>
+                          <div className="result-row highlight-row flex justify-between items-center pt-2 border-t border-success-300">
+                            <span className="result-label font-bold text-success-700">Estimated Cost:</span>
+                            <span className="result-value highlight-value font-bold text-success-700 text-xl">${results.cost}</span>
                           </div>
                         </div>
                       </div>
-                    </>
+                    </PrintableResultsWrapper>
                   )}
                 </div>
               ) : (
