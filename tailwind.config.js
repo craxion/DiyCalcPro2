@@ -133,4 +133,33 @@ export default {
     },
   },
   plugins: [],
+  safelist: [
+    // Ensure all custom classes are included in the build
+    'bg-gradient-orange',
+    'bg-gradient-grey', 
+    'bg-gradient-subtle',
+    'shadow-orange-glow',
+    'shadow-orange-glow-lg',
+    'shadow-card-hover',
+    'shadow-card-active',
+    'animate-float',
+    'animate-glow',
+    'animate-pulse-orange',
+    'animate-bounce-subtle',
+    'animate-slide-up',
+    'animate-fade-in',
+    'animate-scale-in',
+    // All grey colors
+    'bg-grey-50', 'bg-grey-100', 'bg-grey-200', 'bg-grey-300', 'bg-grey-400', 'bg-grey-500', 'bg-grey-600', 'bg-grey-700', 'bg-grey-800', 'bg-grey-900',
+    'text-grey-50', 'text-grey-100', 'text-grey-200', 'text-grey-300', 'text-grey-400', 'text-grey-500', 'text-grey-600', 'text-grey-700', 'text-grey-800', 'text-grey-900',
+    'border-grey-50', 'border-grey-100', 'border-grey-200', 'border-grey-300', 'border-grey-400', 'border-grey-500', 'border-grey-600', 'border-grey-700', 'border-grey-800', 'border-grey-900',
+    // All primary colors
+    'bg-primary-50', 'bg-primary-100', 'bg-primary-200', 'bg-primary-300', 'bg-primary-400', 'bg-primary-500', 'bg-primary-600', 'bg-primary-700', 'bg-primary-800', 'bg-primary-900',
+    'text-primary-50', 'text-primary-100', 'text-primary-200', 'text-primary-300', 'text-primary-400', 'text-primary-500', 'text-primary-600', 'text-primary-700', 'text-primary-800', 'text-primary-900',
+    'border-primary-50', 'border-primary-100', 'border-primary-200', 'border-primary-300', 'border-primary-400', 'border-primary-500', 'border-primary-600', 'border-primary-700', 'border-primary-800', 'border-primary-900',
+    // All secondary colors
+    'bg-secondary-50', 'bg-secondary-100', 'bg-secondary-200', 'bg-secondary-300', 'bg-secondary-400', 'bg-secondary-500', 'bg-secondary-600', 'bg-secondary-700', 'bg-secondary-800', 'bg-secondary-900',
+    'text-secondary-50', 'text-secondary-100', 'text-secondary-200', 'text-secondary-300', 'text-secondary-400', 'text-secondary-500', 'text-secondary-600', 'text-secondary-700', 'text-secondary-800', 'text-secondary-900',
+    'border-secondary-50', 'border-secondary-100', 'border-secondary-200', 'border-secondary-300', 'border-secondary-400', 'border-secondary-500', 'border-secondary-600', 'border-secondary-700', 'border-secondary-800', 'border-secondary-900',
+  ]
 };

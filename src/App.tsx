@@ -11,7 +11,7 @@ import { AllCalculatorsPage } from './pages/AllCalculatorsPage';
 function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-gray-50 flex flex-col">
+      <div className="min-h-screen bg-grey-200 flex flex-col">
         <Header />
         <main className="flex-1">
           <Routes>
