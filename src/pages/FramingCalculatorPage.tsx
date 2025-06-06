@@ -34,7 +34,7 @@ export function FramingCalculatorPage() {
   };
   
   if (calculatorSlug !== 'framing-material-estimator') {
-    return <Navigate to="/calculators" replace />;
+    return <Navigate to="/calculators\" replace />;
   }
 
   const [framingMode, setFramingMode] = useState<'wall' | 'roof'>('wall');
