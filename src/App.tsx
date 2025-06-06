@@ -19,9 +19,10 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/categories" element={<CategoriesPage />} />
             <Route path="/calculators" element={<AllCalculatorsPage />} />
+            {/* Specific route for framing calculator - must come before the general pattern */}
+            <Route path="/calculators/construction-and-building/framing-material-estimator" element={<FramingCalculatorPage />} />
             <Route path="/calculators/:categorySlug" element={<CategoryPage />} />
             <Route path="/calculators/:categorySlug/:calculatorSlug" element={<CalculatorPage />} />
-            <Route path="/calculators/construction-and-building/framing-material-estimator" element={<FramingCalculatorPage />} />
           </Routes>
         </main>
         <Footer />
