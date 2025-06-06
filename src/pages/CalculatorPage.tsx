@@ -13,7 +13,7 @@ export function CalculatorPage() {
   const calculator = sampleCalculators.find(calc => calc.slug === calculatorSlug);
   
   if (!calculator) {
-    return <Navigate to="/calculators" replace />;
+    return <Navigate to="/calculators\" replace />;
   }
 
   const [inputs, setInputs] = useState<Record<string, number>>({});
