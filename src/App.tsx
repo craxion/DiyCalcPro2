@@ -6,6 +6,7 @@ import { HomePage } from './pages/HomePage';
 import { CategoriesPage } from './pages/CategoriesPage';
 import { CategoryPage } from './pages/CategoryPage';
 import { CalculatorPage } from './pages/CalculatorPage';
+import { FramingCalculatorPage } from './pages/FramingCalculatorPage';
 import { AllCalculatorsPage } from './pages/AllCalculatorsPage';
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
             <Route path="/calculators" element={<AllCalculatorsPage />} />
             <Route path="/calculators/:categorySlug" element={<CategoryPage />} />
             <Route path="/calculators/:categorySlug/:calculatorSlug" element={<CalculatorPage />} />
+            <Route path="/calculators/construction-and-building/framing-material-estimator" element={<FramingCalculatorPage />} />
           </Routes>
         </main>
         <Footer />

@@ -44,7 +44,8 @@ export const calculatorCategories: CalculatorCategory[] = [
       'drywall-calculator',
       'insulation-calculator',
       'lumber-board-foot-calculator',
-      'decking-calculator'
+      'decking-calculator',
+      'framing-material-estimator'
     ]
   },
   {
@@ -166,7 +167,7 @@ export const sampleCalculators: Calculator[] = [
   },
   {
     id: 'soil-mulch-gravel-calculator',
-    name: 'Soil, Mulch & Gravel Calculator',
+    name: 'Soil, Mulch and Gravel Calculator',
     description: 'Calculate cubic yards of soil, mulch, or gravel needed for landscaping projects',
     category: 'Landscaping and Outdoor',
     slug: 'soil-mulch-gravel-calculator',
@@ -177,6 +178,33 @@ export const sampleCalculators: Calculator[] = [
       { id: 'width', label: 'Width', type: 'number', unit: 'ft', required: true, min: 0.1, step: 0.1, help: 'Width of the area to cover' },
       { id: 'depth', label: 'Depth', type: 'number', unit: 'in', required: true, min: 0.5, step: 0.25, help: 'Desired depth of material' },
       { id: 'materialType', label: 'Material Type', type: 'select', required: true, options: ['Soil', 'Mulch', 'Gravel', 'Sand'], help: 'Type of material being calculated' }
+    ]
+  },
+  {
+    id: 'framing-material-estimator',
+    name: 'Framing Material Estimator (Walls and Roof)',
+    description: 'Comprehensive calculator for wall and roof framing materials including lumber, sheathing, and cost estimates',
+    category: 'Construction and Building',
+    slug: 'framing-material-estimator',
+    formula: 'Material quantities based on framing standards and spacing requirements',
+    units: ['linear feet', 'board feet', 'sheets', 'pieces'],
+    inputs: [
+      { id: 'framingMode', label: 'Framing Mode', type: 'select', required: true, options: ['Wall Framing', 'Roof Framing'], help: 'Select whether you are calculating wall or roof framing materials' },
+      { id: 'wallType', label: 'Wall Type', type: 'select', required: false, options: ['Exterior', 'Interior'], help: 'Exterior walls use double top plates and headers for all openings' },
+      { id: 'roofType', label: 'Roof Type', type: 'select', required: false, options: ['Gable Roof', 'Hip Roof'], help: 'Type of roof structure being framed' },
+      { id: 'length', label: 'Length', type: 'number', unit: 'ft', required: true, min: 1, step: 0.25, help: 'Wall length or building length along ridge' },
+      { id: 'width', label: 'Width', type: 'number', unit: 'ft', required: false, min: 1, step: 0.25, help: 'Building width (for roof framing only)' },
+      { id: 'height', label: 'Height', type: 'number', unit: 'ft', required: false, min: 6, step: 0.25, help: 'Wall height from floor to top plate' },
+      { id: 'studSpacing', label: 'Stud/Rafter Spacing', type: 'select', required: true, options: ['16 inches O.C.', '24 inches O.C.'], help: 'On Center spacing for studs or rafters' },
+      { id: 'roofPitch', label: 'Roof Pitch', type: 'select', required: false, options: ['4 in 12', '6 in 12', '8 in 12', '10 in 12', '12 in 12'], help: 'Rise per 12 inches of run' },
+      { id: 'overhang', label: 'Overhang Length', type: 'number', unit: 'ft', required: false, min: 0, max: 4, step: 0.25, help: 'Rafter overhang beyond wall line' },
+      { id: 'lumberSize', label: 'Lumber Size', type: 'select', required: true, options: ['2x4', '2x6', '2x8', '2x10', '2x12'], help: 'Dimensional lumber size for studs/rafters' },
+      { id: 'wasteFactor', label: 'Waste Factor', type: 'number', unit: '%', required: false, min: 0, max: 25, step: 1, help: 'Additional material for waste (typically 10-15%)' },
+      { id: 'lumberCost', label: 'Lumber Cost per Linear Foot', type: 'number', unit: '$', required: false, min: 0, step: 0.01, help: 'Cost per linear foot of lumber' },
+      { id: 'includeSheathing', label: 'Include Sheathing', type: 'select', required: false, options: ['Yes', 'No'], help: 'Include sheathing material calculations' },
+      { id: 'sheathingType', label: 'Sheathing Type', type: 'select', required: false, options: ['OSB', 'Plywood'], help: 'Type of sheathing material' },
+      { id: 'sheathingThickness', label: 'Sheathing Thickness', type: 'select', required: false, options: ['1/2 inch', '5/8 inch', '3/4 inch'], help: 'Thickness of sheathing panels' },
+      { id: 'sheathingCost', label: 'Sheathing Cost per Sheet', type: 'number', unit: '$', required: false, min: 0, step: 0.01, help: 'Cost per 4x8 sheet of sheathing' }
     ]
   }
 ];
