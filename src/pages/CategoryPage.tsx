@@ -14,7 +14,7 @@ export function CategoryPage() {
   const category = calculatorCategories.find(cat => cat.slug === categorySlug);
   
   if (!category) {
-    return <Navigate to="/categories" replace />;
+    return <Navigate to="/categories\" replace />;
   }
 
   const IconComponent = (Icons as any)[category.icon] || Icons.Calculator;
