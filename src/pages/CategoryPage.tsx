@@ -14,13 +14,17 @@ export function CategoryPage() {
   const category = calculatorCategories.find(cat => cat.slug === categorySlug);
   
   if (!category) {
-    return <Navigate to="/categories\" replace />;
+    return <Navigate to="/categories" replace />;
   }
 
   const IconComponent = (Icons as any)[category.icon] || Icons.Calculator;
-  const categoryCalculators = sampleCalculators.filter(calc => 
-    calc.category.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') === categorySlug
-  );
+  
+  // Filter calculators that belong to this category AND exist in sampleCalculators
+  const categoryCalculators = sampleCalculators.filter(calc => {
+    const categoryMatch = calc.category.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') === categorySlug;
+    const isInCategoryList = category.calculators.includes(calc.id);
+    return categoryMatch && isInCategoryList;
+  });
 
   useEffect(() => {
     setIsVisible(true);
@@ -53,7 +57,7 @@ export function CategoryPage() {
           
           <div className="inline-flex items-center space-x-2 bg-primary-100 text-primary-700 rounded-full px-6 py-2 mb-6">
             <TrendingUp className="h-4 w-4" />
-            <span className="font-semibold text-sm">{category.calculators.length} Professional Tools</span>
+            <span className="font-semibold text-sm">{categoryCalculators.length} Professional Tools</span>
           </div>
           
           <h1 className="text-5xl md:text-6xl font-bold text-grey-800 mb-6">
@@ -81,9 +85,12 @@ export function CategoryPage() {
                   name={calculator.name}
                   description={calculator.description}
                   category={calculator.category}
-                  url={generateCalculatorUrl(calculator.category, calculator.name)}
+                  url={calculator.id === 'framing-material-estimator' 
+                    ? '/calculators/construction-and-building/framing-material-estimator'
+                    : generateCalculatorUrl(calculator.category, calculator.name)
+                  }
                   isPopular={index === 0}
-                  isNew={index === 1}
+                  isNew={calculator.id === 'framing-material-estimator'}
                 />
               </div>
             ))}
